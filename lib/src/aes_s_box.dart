@@ -44,5 +44,17 @@ class AESSBox {
   ] as List<Uint8List>;
 
 
+  ///Encrypt byte of data using direct S-box
+  ///inputs and outputs are handled as Uint8
+  int encryptByte(int plaintextByte) {
+    if(plaintextByte > 255) {
+      throw ArgumentError("AESSBox: S-box can handle only inputs of 8 bits length");
+    }
 
+    if(plaintextByte < 0) {
+      throw ArgumentError("AESSBox: S-box can't handle negative inputs");
+    }
+
+    return _s[plaintextByte >> 4][plaintextByte & 0x0f];
+  }
 }
