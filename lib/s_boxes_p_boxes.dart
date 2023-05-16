@@ -3,6 +3,9 @@
 /// More dartdocs go here.
 library s_boxes_p_boxes;
 
-export 'src/s_boxes_p_boxes_base.dart';
+import 'dart:ffi';
+
+part './src/aes_s_box.dart';
+
 
 // TODO: Export any libraries intended for clients of this package.
