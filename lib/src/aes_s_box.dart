@@ -57,4 +57,19 @@ class AESSBox {
 
     return _s[plaintextByte >> 4][plaintextByte & 0x0f];
   }
+
+
+  ///Encrypt byte of data using direct S-box
+  ///inputs and outputs are handled as Uint8
+  int decryptByte(int ciphertextByte) {
+    if(ciphertextByte > 255) {
+      throw ArgumentError("AESSBox: S-box can handle only inputs of 8 bits length");
+    }
+
+    if(ciphertextByte < 0) {
+      throw ArgumentError("AESSBox: S-box can't handle negative inputs");
+    }
+
+    return _invertedS[ciphertextByte >> 4][ciphertextByte & 0x0f];
+  }
 }
