@@ -3,7 +3,7 @@
 /// More dartdocs go here.
 library s_boxes_p_boxes;
 
-import 'dart:ffi';
+import 'dart:typed_data';
 
 part './src/aes_s_box.dart';
 
