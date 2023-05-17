@@ -13,6 +13,8 @@ You should install Dart programming language SDK and Flutter framework. Then clo
 
 ## Usage
 
+For more sophisticated usage example see [example folder](./example/s_boxes_p_boxes_example.dart)
+
 #### AES S-box
 
 To cipher just 1 byte of data use `encryptByte`/`decryptByte` methods pair
