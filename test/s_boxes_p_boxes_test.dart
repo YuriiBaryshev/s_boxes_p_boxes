@@ -55,4 +55,12 @@ void main() {
       expect(() => sBox.decryptByte(-1), throwsArgumentError);
     });
   });
+
+
+  group('P-box tests', () {
+    test('fails to create P box with number of elements that differs from 8', () {
+      expect(() => PBox([1, 2, 3, 4, 5, 6, 7]), throwsArgumentError);
+      expect(() => PBox([1, 2, 3, 4, 5, 6, 7, 8, 9]), throwsArgumentError);
+    });
+  });
 }
