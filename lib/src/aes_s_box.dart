@@ -59,7 +59,7 @@ class AESSBox {
   }
 
 
-  ///Encrypt byte of data using direct S-box
+  ///Decrypt byte of data using direct S-box
   ///inputs and outputs are handled as Uint8
   int decryptByte(int ciphertextByte) {
     if(ciphertextByte > 255) {
