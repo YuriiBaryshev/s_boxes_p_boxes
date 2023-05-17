@@ -9,6 +9,9 @@ class PBox {
   ///
   ///Therefore there should be exact 8 elements, and each element
   ///must be unique and have values from the set {0, 1, 2, 3, 4, 5, 6, 7}
+  ///
+  ///Where input [0, 1, 2, 3, 4, 5, 6, 7] means there will be no permutation
+  ///[7, 6, 5, 4, 3, 2, 1, 0] means there will be reverse bit order (mirror)
   PBox(List<int> permutationRule) {
     if(permutationRule.length != 8) {
       throw ArgumentError("PBox: the set of new bits positions within byte must"
