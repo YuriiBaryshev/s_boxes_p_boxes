@@ -129,5 +129,24 @@ void main() {
       expect(switchNeighbors.decryptByte(0x5c), 0xac);
       expect(switchNeighbors.decryptByte(0x81), 0x42);
     });
+
+
+    test('encrypting and decrypting are compatible', () {
+      Uint8List plaintext = Uint8List.fromList([0, 1, 2, 3, 42, 123, 200, 255]);
+      for(int plaintextByte in plaintext) {
+        int ciphertextByte = mirrorPermutation.encryptByte(plaintextByte);
+        expect(mirrorPermutation.decryptByte(ciphertextByte), plaintextByte);
+      }
+
+      for(int plaintextByte in plaintext) {
+        int ciphertextByte = switchNeighbors.encryptByte(plaintextByte);
+        expect(switchNeighbors.decryptByte(ciphertextByte), plaintextByte);
+      }
+
+      for(int plaintextByte in plaintext) {
+        int ciphertextByte = shiftLeft.encryptByte(plaintextByte);
+        expect(shiftLeft.decryptByte(ciphertextByte), plaintextByte);
+      }
+    });
   });
 }
