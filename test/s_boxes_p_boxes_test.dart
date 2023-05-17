@@ -90,47 +90,47 @@ void main() {
 
     test('encrypt using different P-boxes', () {
       PBox directPBox = PBox([0, 1, 2, 3, 4, 5, 6, 7]);
-      expect(directPBox.encrypt(0x55), 0x55);
-      expect(directPBox.encrypt(0xa5), 0xa5);
-      expect(directPBox.encrypt(0xc3), 0xc3);
+      expect(directPBox.encryptByte(0x55), 0x55);
+      expect(directPBox.encryptByte(0xa5), 0xa5);
+      expect(directPBox.encryptByte(0xc3), 0xc3);
 
       PBox shiftLeft = PBox([1, 2, 3, 4, 5, 6, 7, 0]);
-      expect(shiftLeft.encrypt(0x55), 0xaa);
-      expect(shiftLeft.encrypt(0xa5), 0xd2);
-      expect(shiftLeft.encrypt(0xc3), 0xe1);
+      expect(shiftLeft.encryptByte(0x55), 0xaa);
+      expect(shiftLeft.encryptByte(0xa5), 0xd2);
+      expect(shiftLeft.encryptByte(0xc3), 0xe1);
 
       PBox mirrorPermutation = PBox([7, 6, 5, 4, 3, 2, 1, 0]);
-      expect(mirrorPermutation.encrypt(0xf0), 0x0f);
-      expect(mirrorPermutation.encrypt(0xac), 0x35);
-      expect(mirrorPermutation.encrypt(0x42), 0x42);
+      expect(mirrorPermutation.encryptByte(0xf0), 0x0f);
+      expect(mirrorPermutation.encryptByte(0xac), 0x35);
+      expect(mirrorPermutation.encryptByte(0x42), 0x42);
 
       PBox switchNeighbors = PBox([1, 0, 3, 2, 5, 4, 7, 6]);
-      expect(switchNeighbors.encrypt(0xf0), 0xf0);
-      expect(switchNeighbors.encrypt(0xac), 0x5c);
-      expect(switchNeighbors.encrypt(0x42), 0x81);
+      expect(switchNeighbors.encryptByte(0xf0), 0xf0);
+      expect(switchNeighbors.encryptByte(0xac), 0x5c);
+      expect(switchNeighbors.encryptByte(0x42), 0x81);
     });
 
 
     test('decrypt using different P-boxes', () {
       PBox directPBox = PBox([0, 1, 2, 3, 4, 5, 6, 7]);
-      expect(directPBox.decrypt(0x55), 0x55);
-      expect(directPBox.decrypt(0xa5), 0xa5);
-      expect(directPBox.decrypt(0xc3), 0xc3);
+      expect(directPBox.decryptByte(0x55), 0x55);
+      expect(directPBox.decryptByte(0xa5), 0xa5);
+      expect(directPBox.decryptByte(0xc3), 0xc3);
 
       PBox shiftLeft = PBox([1, 2, 3, 4, 5, 6, 7, 0]);
-      expect(shiftLeft.decrypt(0x55), 0xaa);
-      expect(shiftLeft.decrypt(0xd2), 0xa5);
-      expect(shiftLeft.decrypt(0xe1), 0xc3);
+      expect(shiftLeft.decryptByte(0x55), 0xaa);
+      expect(shiftLeft.decryptByte(0xd2), 0xa5);
+      expect(shiftLeft.decryptByte(0xe1), 0xc3);
 
       PBox mirrorPermutation = PBox([7, 6, 5, 4, 3, 2, 1, 0]);
-      expect(mirrorPermutation.decrypt(0x0f), 0xf0);
-      expect(mirrorPermutation.decrypt(0x35), 0xac);
-      expect(mirrorPermutation.decrypt(0x42), 0x42);
+      expect(mirrorPermutation.decryptByte(0x0f), 0xf0);
+      expect(mirrorPermutation.decryptByte(0x35), 0xac);
+      expect(mirrorPermutation.decryptByte(0x42), 0x42);
 
       PBox switchNeighbors = PBox([1, 0, 3, 2, 5, 4, 7, 6]);
-      expect(switchNeighbors.decrypt(0xf0), 0xf0);
-      expect(switchNeighbors.decrypt(0x5c), 0xac);
-      expect(switchNeighbors.decrypt(0x81), 0x42);
+      expect(switchNeighbors.decryptByte(0xf0), 0xf0);
+      expect(switchNeighbors.decryptByte(0x5c), 0xac);
+      expect(switchNeighbors.decryptByte(0x81), 0x42);
     });
   });
 }

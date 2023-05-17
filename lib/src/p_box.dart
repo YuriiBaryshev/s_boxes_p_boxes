@@ -1,7 +1,7 @@
 part of s_boxes_p_boxes;
 
 ///Implements custom P-box
-class PBox {
+class PBox extends CryptoPrimitive {
   Uint8List _permutationRule = Uint8List(8);
 
   ///Initiates P-box with certain permutation rule, which should be passed as
@@ -35,7 +35,8 @@ class PBox {
 
   ///Make bits permutation within byte of data
   ///Watch out passing values outside range [0; 255]
-  int encrypt(int plaintextByte) {
+  @override
+  int encryptByte(int plaintextByte) {
     if((plaintextByte < 0) || (plaintextByte > 255)) {
       throw ArgumentError("PBox: the input must be in range [0; 255]");
     }
@@ -58,7 +59,8 @@ class PBox {
 
   ///Make inverse bits permutation within byte of data
   ///Watch out passing values outside range [0; 255]
-  int decrypt(int ciphertextByte) {
+  @override
+  int decryptByte(int ciphertextByte) {
     if((ciphertextByte < 0) || (ciphertextByte > 255)) {
       throw ArgumentError("PBox: the input must be in range [0; 255]");
     }
