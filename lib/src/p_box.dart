@@ -54,4 +54,29 @@ class PBox {
 
     return ciphertext;
   }
+
+
+  ///Make inverse bits permutation within byte of data
+  ///Watch out passing values outside range [0; 255]
+  int decrypt(int ciphertextByte) {
+    if((ciphertextByte < 0) || (ciphertextByte > 255)) {
+      throw ArgumentError("PBox: the input must be in range [0; 255]");
+    }
+    int mask, plaintext = 0;
+
+    for(int i = 0; i < 8; i++) {
+      int shift = (_permutationRule[i] - i) % 8;
+      if(shift < 0) {
+        shift += 8;
+      }
+
+      mask = 0x80 >> _permutationRule[i];
+
+      plaintext |= (((ciphertextByte & mask) << shift) |
+      ((ciphertextByte & mask) >> (8 - shift))) &
+      0xff;
+    }
+
+    return plaintext;
+  }
 }
