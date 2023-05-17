@@ -14,5 +14,12 @@ void main() {
       expect(sBox.encryptByte(255), 0x16);
       expect(sBox.encryptByte(0x77), 0xf5);
     });
+
+
+    test('decrypts byte of data', () {
+      expect(sBox.decryptByte(0), 0x52);
+      expect(sBox.decryptByte(255), 0x7d);
+      expect(sBox.decryptByte(0x77), 2);
+    });
   });
 }
