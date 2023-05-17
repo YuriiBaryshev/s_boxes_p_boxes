@@ -27,11 +27,11 @@ To cipher just 1 byte of data use `encryptByte`/`decryptByte` methods pair
 For more applicable implementation one may use `encryptByteArray`/`decryptByteArry` methods
 
 ```dart
-      var sBox = AESSBox();
-      Uint8List plaintext = Uint8List.fromList([1, 2, 3, 4, 5, 6, 7, 8, 255]);
-      Uint8List ciphertext = sBox.encryptByteArray(plaintext);
-      print(ciphertext); //[124, 119, 123, 242, 107, 111, 197, 48, 22]
+    var sBox = AESSBox();
+    Uint8List plaintext = Uint8List.fromList([1, 2, 3, 4, 5, 6, 7, 8, 255]);
+    Uint8List ciphertext = sBox.encryptByteArray(plaintext);
+    print(ciphertext); //[124, 119, 123, 242, 107, 111, 197, 48, 22]
         
-      Uint8List decryptedText = sBox.decryptByteArray(ciphertext);
-      print(decryptedText); //[1, 2, 3, 4, 5, 6, 7, 8, 255]
+    Uint8List decryptedText = sBox.decryptByteArray(ciphertext);
+    print(decryptedText); //[1, 2, 3, 4, 5, 6, 7, 8, 255]
 ```
