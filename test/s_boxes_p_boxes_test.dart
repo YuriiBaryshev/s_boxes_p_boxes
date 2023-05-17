@@ -39,5 +39,12 @@ void main() {
       Uint8List ciphertext = Uint8List.fromList([0x63, 22, 0xf5]);
       expect(sBox.encryptByteArray(plaintext), ciphertext);
     });
+
+
+    test('decrypts byte array', () {
+      Uint8List ciphertext = Uint8List.fromList([0, 255, 0x77]);
+      Uint8List plaintext = Uint8List.fromList([0x52, 0x7d, 2]);
+      expect(sBox.decryptByteArray(ciphertext), plaintext);
+    });
   });
 }
