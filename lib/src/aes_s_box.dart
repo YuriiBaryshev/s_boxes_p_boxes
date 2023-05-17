@@ -72,4 +72,15 @@ class AESSBox {
 
     return _invertedS[ciphertextByte >> 4][ciphertextByte & 0x0f];
   }
+
+
+  ///Encrypt byte array
+  Uint8List encryptByteArray(Uint8List plaintext) {
+    Uint8List ciphertext = Uint8List(plaintext.length);
+    for(int i = 0; i < plaintext.length; i++) {
+      ciphertext[i] = encryptByte(plaintext[i]);
+    }
+
+    return ciphertext;
+  }
 }
