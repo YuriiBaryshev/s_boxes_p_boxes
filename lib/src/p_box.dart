@@ -31,4 +31,27 @@ class PBox {
 
     _permutationRule = Uint8List.fromList(permutationRule);
   }
+
+
+  ///Make bits permutation within byte of data
+  ///Watch out passing values outside range [0; 255]
+  int encrypt(int plaintextByte) {
+    if((plaintextByte < 0) || (plaintextByte > 255)) {
+      throw ArgumentError("PBox: the input must be in range [0; 255]");
+    }
+    int mask = 0x80, ciphertext = 0;
+
+    for(int i = 0; mask != 0; i++, mask = mask >> 1) {
+      int shift = (_permutationRule[i] - i) % 8;
+      if(shift < 0) {
+        shift += 8;
+      }
+
+      ciphertext |= (((plaintextByte & mask) >> shift) |
+        ((plaintextByte & mask) << (8 - shift))) &
+        0xff;
+    }
+
+    return ciphertext;
+  }
 }
