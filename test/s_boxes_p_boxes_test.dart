@@ -58,6 +58,11 @@ void main() {
 
 
   group('P-box tests', () {
+    PBox directPBox = PBox([0, 1, 2, 3, 4, 5, 6, 7]);
+    PBox shiftLeft = PBox([1, 2, 3, 4, 5, 6, 7, 0]);
+    PBox mirrorPermutation = PBox([7, 6, 5, 4, 3, 2, 1, 0]);
+    PBox switchNeighbors = PBox([1, 0, 3, 2, 5, 4, 7, 6]);
+
     test('fails to create P box with number of elements that differs from 8', () {
       expect(() => PBox([1, 2, 3, 4, 5, 6, 7]), throwsArgumentError);
       expect(() => PBox([1, 2, 3, 4, 5, 6, 7, 7, 7]), throwsArgumentError);
@@ -89,22 +94,18 @@ void main() {
 
 
     test('encrypt using different P-boxes', () {
-      PBox directPBox = PBox([0, 1, 2, 3, 4, 5, 6, 7]);
       expect(directPBox.encryptByte(0x55), 0x55);
       expect(directPBox.encryptByte(0xa5), 0xa5);
       expect(directPBox.encryptByte(0xc3), 0xc3);
 
-      PBox shiftLeft = PBox([1, 2, 3, 4, 5, 6, 7, 0]);
       expect(shiftLeft.encryptByte(0x55), 0xaa);
       expect(shiftLeft.encryptByte(0xa5), 0xd2);
       expect(shiftLeft.encryptByte(0xc3), 0xe1);
 
-      PBox mirrorPermutation = PBox([7, 6, 5, 4, 3, 2, 1, 0]);
       expect(mirrorPermutation.encryptByte(0xf0), 0x0f);
       expect(mirrorPermutation.encryptByte(0xac), 0x35);
       expect(mirrorPermutation.encryptByte(0x42), 0x42);
 
-      PBox switchNeighbors = PBox([1, 0, 3, 2, 5, 4, 7, 6]);
       expect(switchNeighbors.encryptByte(0xf0), 0xf0);
       expect(switchNeighbors.encryptByte(0xac), 0x5c);
       expect(switchNeighbors.encryptByte(0x42), 0x81);
@@ -112,22 +113,18 @@ void main() {
 
 
     test('decrypt using different P-boxes', () {
-      PBox directPBox = PBox([0, 1, 2, 3, 4, 5, 6, 7]);
       expect(directPBox.decryptByte(0x55), 0x55);
       expect(directPBox.decryptByte(0xa5), 0xa5);
       expect(directPBox.decryptByte(0xc3), 0xc3);
 
-      PBox shiftLeft = PBox([1, 2, 3, 4, 5, 6, 7, 0]);
       expect(shiftLeft.decryptByte(0x55), 0xaa);
       expect(shiftLeft.decryptByte(0xd2), 0xa5);
       expect(shiftLeft.decryptByte(0xe1), 0xc3);
 
-      PBox mirrorPermutation = PBox([7, 6, 5, 4, 3, 2, 1, 0]);
       expect(mirrorPermutation.decryptByte(0x0f), 0xf0);
       expect(mirrorPermutation.decryptByte(0x35), 0xac);
       expect(mirrorPermutation.decryptByte(0x42), 0x42);
 
-      PBox switchNeighbors = PBox([1, 0, 3, 2, 5, 4, 7, 6]);
       expect(switchNeighbors.decryptByte(0xf0), 0xf0);
       expect(switchNeighbors.decryptByte(0x5c), 0xac);
       expect(switchNeighbors.decryptByte(0x81), 0x42);
