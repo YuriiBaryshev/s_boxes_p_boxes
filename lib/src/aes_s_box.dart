@@ -83,4 +83,15 @@ class AESSBox {
 
     return ciphertext;
   }
+
+
+  ///Decrypt byte array
+  Uint8List decryptByteArray(Uint8List ciphertext) {
+    Uint8List plaintext = Uint8List(ciphertext.length);
+    for(int i = 0; i < ciphertext.length; i++) {
+      plaintext[i] = decryptByte(ciphertext[i]);
+    }
+
+    return plaintext;
+  }
 }
