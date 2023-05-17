@@ -7,10 +7,6 @@ void main() {
   group('AES S-box tests', () {
     final AESSBox sBox = AESSBox();
 
-    setUp(() {
-      // Additional setup goes here.
-    });
-
     test('encrypts byte of data', () {
       expect(sBox.encryptByte(0), 0x63);
       expect(sBox.encryptByte(255), 0x16);
@@ -45,6 +41,18 @@ void main() {
       Uint8List ciphertext = Uint8List.fromList([0, 255, 0x77]);
       Uint8List plaintext = Uint8List.fromList([0x52, 0x7d, 2]);
       expect(sBox.decryptByteArray(ciphertext), plaintext);
+    });
+
+
+    test('encryptByte validates data', () {
+      expect(() => sBox.encryptByte(256), throwsArgumentError);
+      expect(() => sBox.encryptByte(-1), throwsArgumentError);
+    });
+
+
+    test('decryptByte validates data', () {
+      expect(() => sBox.decryptByte(256), throwsArgumentError);
+      expect(() => sBox.decryptByte(-1), throwsArgumentError);
     });
   });
 }
