@@ -1,7 +1,7 @@
 part of s_boxes_p_boxes;
 
 ///Implements S-box of the AES algorithm
-class AESSBox {
+class AESSBox extends CryptoPrimitive {
   ///The direct S-box constants
   final List<Uint8List> _s = [
     Uint8List.fromList([0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76]),
@@ -46,6 +46,7 @@ class AESSBox {
 
   ///Encrypt byte of data using direct S-box
   ///inputs and outputs are handled as Uint8
+  @override
   int encryptByte(int plaintextByte) {
     if(plaintextByte > 255) {
       throw ArgumentError("AESSBox: S-box can handle only inputs of 8 bits length");
@@ -61,6 +62,7 @@ class AESSBox {
 
   ///Decrypt byte of data using direct S-box
   ///inputs and outputs are handled as Uint8
+  @override
   int decryptByte(int ciphertextByte) {
     if(ciphertextByte > 255) {
       throw ArgumentError("AESSBox: S-box can handle only inputs of 8 bits length");
@@ -71,27 +73,5 @@ class AESSBox {
     }
 
     return _invertedS[ciphertextByte >> 4][ciphertextByte & 0x0f];
-  }
-
-
-  ///Encrypt byte array
-  Uint8List encryptByteArray(Uint8List plaintext) {
-    Uint8List ciphertext = Uint8List(plaintext.length);
-    for(int i = 0; i < plaintext.length; i++) {
-      ciphertext[i] = encryptByte(plaintext[i]);
-    }
-
-    return ciphertext;
-  }
-
-
-  ///Decrypt byte array
-  Uint8List decryptByteArray(Uint8List ciphertext) {
-    Uint8List plaintext = Uint8List(ciphertext.length);
-    for(int i = 0; i < ciphertext.length; i++) {
-      plaintext[i] = decryptByte(ciphertext[i]);
-    }
-
-    return plaintext;
   }
 }
