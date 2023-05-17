@@ -88,7 +88,7 @@ void main() {
     });
 
 
-    test('manage to create P box with proper rules', () {
+    test('encrypt using different P-boxes', () {
       PBox directPBox = PBox([0, 1, 2, 3, 4, 5, 6, 7]);
       expect(directPBox.encrypt(0x55), 0x55);
       expect(directPBox.encrypt(0xa5), 0xa5);
@@ -108,6 +108,29 @@ void main() {
       expect(switchNeighbors.encrypt(0xf0), 0xf0);
       expect(switchNeighbors.encrypt(0xac), 0x5c);
       expect(switchNeighbors.encrypt(0x42), 0x81);
+    });
+
+
+    test('decrypt using different P-boxes', () {
+      PBox directPBox = PBox([0, 1, 2, 3, 4, 5, 6, 7]);
+      expect(directPBox.decrypt(0x55), 0x55);
+      expect(directPBox.decrypt(0xa5), 0xa5);
+      expect(directPBox.decrypt(0xc3), 0xc3);
+
+      PBox shiftLeft = PBox([1, 2, 3, 4, 5, 6, 7, 0]);
+      expect(shiftLeft.decrypt(0x55), 0xaa);
+      expect(shiftLeft.decrypt(0xd2), 0xa5);
+      expect(shiftLeft.decrypt(0xe1), 0xc3);
+
+      PBox mirrorPermutation = PBox([7, 6, 5, 4, 3, 2, 1, 0]);
+      expect(mirrorPermutation.decrypt(0x0f), 0xf0);
+      expect(mirrorPermutation.decrypt(0x35), 0xac);
+      expect(mirrorPermutation.decrypt(0x42), 0x42);
+
+      PBox switchNeighbors = PBox([1, 0, 3, 2, 5, 4, 7, 6]);
+      expect(switchNeighbors.decrypt(0xf0), 0xf0);
+      expect(switchNeighbors.decrypt(0x5c), 0xac);
+      expect(switchNeighbors.decrypt(0x81), 0x42);
     });
   });
 }
