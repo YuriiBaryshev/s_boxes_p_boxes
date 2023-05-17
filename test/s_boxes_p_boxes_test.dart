@@ -60,7 +60,31 @@ void main() {
   group('P-box tests', () {
     test('fails to create P box with number of elements that differs from 8', () {
       expect(() => PBox([1, 2, 3, 4, 5, 6, 7]), throwsArgumentError);
-      expect(() => PBox([1, 2, 3, 4, 5, 6, 7, 8, 9]), throwsArgumentError);
+      expect(() => PBox([1, 2, 3, 4, 5, 6, 7, 7, 7]), throwsArgumentError);
+    });
+
+
+    test('fails to create P box with negative values within rule', () {
+      expect(() => PBox([1, 2, 3, 4, 5, 6, 7, -1]), throwsArgumentError);
+      expect(() => PBox([-1, 2, 3, 4, 5, 6, 7, 0]), throwsArgumentError);
+    });
+
+
+    test('fails to create P box with rule values larger than 7', () {
+      expect(() => PBox([1, 2, 3, 4, 5, 6, 7, 8]), throwsArgumentError);
+      expect(() => PBox([42, 2, 3, 4, 5, 6, 7, 1]), throwsArgumentError);
+    });
+
+
+    test('fails to create P box without unique values', () {
+      expect(() => PBox([1, 2, 3, 4, 5, 6, 7, 7]), throwsArgumentError);
+      expect(() => PBox([1, 1, 1, 1, 1, 1, 1, 1]), throwsArgumentError);
+    });
+
+
+    test('manage to create P box with proper rules', () {
+      expect(() => PBox([1, 2, 3, 4, 5, 6, 7, 0]), returnsNormally);
+      expect(() => PBox([7, 6, 5, 4, 3, 2, 1, 0]), returnsNormally);
     });
   });
 }
