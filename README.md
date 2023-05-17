@@ -1,28 +1,64 @@
 # S-Boxes and P-boxes implementation
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+The dart package, which was developed with Flutter framework to implement S-boxes and P-boxes transformations.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+1. Implements EAS S-box
+2. Implements any 8 bit P-box
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+You should install Dart programming language SDK and Flutter framework. Then clone the repository and call in the cloned directory command line `flutter pub get` in order to install dependencies. To run the autotests call `flutter test`.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+For more sophisticated usage example see [example folder](./example/s_boxes_p_boxes_example.dart)
 
+#### AES S-box
+
+To cipher just 1 byte of data use `encryptByte`/`decryptByte` methods pair
 ```dart
-const like = 'sample';
+    var sBox = AESSBox();
+    int ciphertextByte = sBox.encryptByte(42);
+    print(ciphertextByte); //229
+    
+    int decryptedByte = sBox.decryptByte(ciphertextByte);
+    print(decryptedByte); //42
 ```
 
-## Additional information
+For more applicable implementation one may use `encryptByteArray`/`decryptByteArry` methods
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+    var sBox = AESSBox();
+    Uint8List plaintext = Uint8List.fromList([1, 2, 3, 4, 5, 6, 7, 8, 255]);
+    Uint8List ciphertext = sBox.encryptByteArray(plaintext);
+    print(ciphertext); //[124, 119, 123, 242, 107, 111, 197, 48, 22]
+        
+    Uint8List decryptedText = sBox.decryptByteArray(ciphertext);
+    print(decryptedText); //[1, 2, 3, 4, 5, 6, 7, 8, 255]
+```
+
+#### P-box
+
+To cipher just 1 byte of data use `encryptByte`/`decryptByte` methods pair
+```dart
+    var mirrorPermutation = PBox([7, 6, 5, 4, 3, 2, 1, 0]);
+    int ciphertextByte = mirrorPermutation.encryptByte(42);
+    print(ciphertextByte); //84
+    
+    int decryptedByte = mirrorPermutation.decryptByte(ciphertextByte);
+    print(decryptedByte); //42
+```
+
+For more applicable implementation one may use `encryptByteArray`/`decryptByteArry` methods
+
+```dart
+    var mirrorPermutation = PBox([7, 6, 5, 4, 3, 2, 1, 0]);
+    Uint8List plaintext = Uint8List.fromList([1, 2, 3, 4, 5, 6, 7, 8, 255]);
+    Uint8List ciphertext = mirrorPermutation.encryptByteArray(plaintext);
+    print(ciphertext); //[128, 64, 192, 32, 160, 96, 224, 16, 255]
+        
+    Uint8List decryptedText = mirrorPermutation.decryptByteArray(ciphertext);
+    print(decryptedText); //[1, 2, 3, 4, 5, 6, 7, 8, 255]
+```
